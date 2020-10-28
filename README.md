@@ -1,3 +1,3 @@
-# Fitness-Journey-App
+# Fit-X-System-Logging-Application
 
-A Fitness Journey App where the user can calculate his/her BMI and track progress every day. The user can make an entry, view, update and delete the entry.  
+A Fitness System Logging Application for employees and members to log their information.
