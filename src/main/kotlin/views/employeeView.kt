@@ -1,6 +1,6 @@
 package views
 
-import models.employeeMemStore
+import main.models.employeeJSONStore
 import models.employeeModel
 
 class employeeView {
@@ -25,7 +25,7 @@ class employeeView {
         return option
     }
 
-    fun listEmployees(employees : employeeMemStore) {
+    fun listEmployees(employees: employeeJSONStore) {
         println("List All Employees")
         println()
         employees.logAll()
