@@ -1,9 +1,7 @@
-package main
+package main.main
 
 import main.controllers.employeeController
 //import models.employeeMemStore
-import models.employeeModel
-import views.employeeView
 import mu.KotlinLogging
 
 private val logger = KotlinLogging.logger {}
