@@ -57,6 +57,11 @@ class employeeJSONStore : employeeStore {
         serialize()
     }
 
+    override fun delete(employee: employeeModel) {
+        employees.remove(employee)
+        serialize()
+    }
+
     internal fun logAll() {
         employees.forEach { logger.info("${it}") }
     }

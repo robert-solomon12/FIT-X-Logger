@@ -19,24 +19,25 @@ class employeeController {
         println("Fit-X-Logger Kotlin App Version 1.0")
     }
 
-//    fun start(){
-//
-//    var input: Int
-//
-//    do {
-//        input = menu()
-//        when(input) {
-//            1 -> add()
-//            2 -> update()
-//            3 -> list()
-//            4 -> search()
-//            5 -> println("Exiting App")
-//            else -> println("Invalid Option")
-//        }
-//        println()
-//    } while (input != 4)
-//    logger.info { "Shutting Down Fit-X-Logger Console App" }
-//}
+    fun start(){
+
+    var input: Int
+
+    do {
+        input = menu()
+        when(input) {
+            1 -> add()
+            2 -> update()
+            3 -> list()
+            4 -> search()
+            5 -> delete()
+            6 -> println("Exiting App")
+            else -> println("Invalid Option")
+        }
+        println()
+    } while (input != 6)
+    logger.info { "Shutting Down Fit-X-Logger Console App" }
+}
 
 
     fun menu(): Int {
@@ -55,7 +56,6 @@ class employeeController {
     fun list() {
         employeeView.listEmployees(employees)
     }
-
 
     fun update() {
 
@@ -79,15 +79,22 @@ class employeeController {
         employeeView.showEmployees(aEmployee)
     }
 
+    fun delete() {
+        employeeView.listEmployees(employees)
+        var searchId = employeeView.getId()
+        val aEmployee = search(searchId)
+
+        if(aEmployee != null) {
+            employees.delete(aEmployee)
+            println("Employee Deleted...")
+            employeeView.listEmployees(employees)
+        }
+        else
+            println("Employee Not Deleted...")
+    }
 
     fun search(id: Long): employeeModel? {
         var foundEmployee = employees.findOne(id)
         return foundEmployee
     }
 }
-
-//    fun dummyData() {
-//        placemarks.create(PlacemarkModel(title = "New York New York", description = "So Good They Named It Twice"))
-//        placemarks.create(PlacemarkModel(title= "Ring of Kerry", description = "Some place in the Kingdom"))
-//        placemarks.create(PlacemarkModel(title = "Waterford City", description = "You get great Blaas Here!!"))
-//    }

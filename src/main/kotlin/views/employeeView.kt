@@ -14,7 +14,8 @@ class employeeView {
         println(" 2. Update Employee")
         println(" 3. List Existing Employees")
         println(" 4. Search Employees")
-        println(" 5. Exit")
+        println(" 5. Delete Employees")
+        println(" 6. Exit")
         println()
         print("Choose option: ")
         input = readLine()!!
@@ -85,7 +86,7 @@ class employeeView {
     fun getId() : Long {
         var strId : String? // String to hold user input
         var searchId : Long // Long to hold converted id
-        print("Enter Employee Id to Search/Update : ")
+        print("Enter Employee Id to Search/Update/Delete : ")
         strId = readLine()!!
         searchId = if (strId.toLongOrNull() != null && !strId.isEmpty())
             strId.toLong()

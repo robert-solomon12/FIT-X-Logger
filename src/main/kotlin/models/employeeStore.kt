@@ -5,4 +5,6 @@ interface employeeStore {
     fun findOne(id: Long): employeeModel?
     fun create(employee: employeeModel)
     fun update(employee: employeeModel)
+    fun delete(employee: employeeModel)
+
 }
