@@ -7,7 +7,6 @@ import mu.KotlinLogging
 
 class employeeController {
 
-
    // val employees = employeeMemStore()
     val employees = employeeJSONStore() //referencing the declaration here to use JSON Persistance implemented in employeeJSONStore class
     val employeeView = employeeView()
