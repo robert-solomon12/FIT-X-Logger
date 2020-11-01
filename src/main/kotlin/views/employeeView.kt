@@ -8,7 +8,7 @@ class employeeView {
     fun menu() : Int {
         var option : Int
         var input: String? = null
-        println("Welcome to Fit-X Logger Menu" +
+        println("Welcome to Fit-X Logger Menu " +
                 "Please choose from the following options: ")
         println(" 1. Add Employee")
         println(" 2. Update Employee")
@@ -26,6 +26,7 @@ class employeeView {
         return option
     }
 
+    //functioncall to list existing employees in the datastore
     fun listEmployees(employees: employeeJSONStore) {
         println("List All Employees")
         println()
@@ -33,9 +34,10 @@ class employeeView {
         println()
     }
 
+    //function call to list employees after user has inputted data <-- this method is invoked when the user chooses the option to search
     fun showEmployees(employee : employeeModel) {
         if(employee != null)
-            println("Employee Details [ $employee ]")
+            println("Employee Details: [ $employee ]")
         else
             println("Employee Not Found...")
     }
@@ -44,15 +46,18 @@ class employeeView {
 
         print("Enter your first name : ")
         employee.fName = readLine()!!
-        print("Enter your second name : ")
+        print("Enter your Surname : ")
         employee.sName = readLine()!!
         print("Enter your Date of Birth: ")
         employee.dateOfB = readLine()!!
+        print("Enter your Email: ")
+        employee.email = readLine()!!
+        print("Enter your Nationality: ")
+        employee.nationality = readLine()!!
         print("Enter your Job Title: ")
         employee.jobTitle = readLine()!!
-//        println("You've entered the following information: \nFirst Name: " + employee.fName + ", \nSecond Name: " + employee.sName + ", \nDate of Birth: " + employee.dateOfB + ", \nJob Title: " + employee.jobTitle + "")
 
-        return employee.fName.isNotEmpty() && employee.sName.isNotEmpty() && employee.dateOfB.isNotEmpty() && employee.jobTitle.isNotEmpty()
+        return employee.fName.isNotEmpty() && employee.sName.isNotEmpty() && employee.dateOfB.isNotEmpty() && employee.email.isNotEmpty() && employee.nationality.isNotEmpty() && employee.jobTitle.isNotEmpty()
     }
 
     fun updateEmployeeData(employee : employeeModel) : Boolean {
@@ -60,22 +65,30 @@ class employeeView {
         var tempfName : String?
         var tempsName : String?
         var tempdateOfB : String?
+        var tempEmail : String?
+        var tempNationality : String?
         var tempjobTitle : String?
 
         if(employee != null) {
-            print("Enter a new First Name for [ " + employee.fName + " ] : ")
+            print("Update your First Name to replace [ " + employee.fName + " ] : ")
             tempfName = readLine()!!
-            print("Enter a new Second Name for [ " + employee.sName + " ] : ")
+            print("Update your Surname to replace [ " + employee.sName + " ] : ")
             tempsName = readLine()!!
-            print("Enter your new Date of Birth for [ " + employee.dateOfB + " ] : ")
+            print("Update your Date of Birth to replace [ " + employee.dateOfB + " ] : ")
             tempdateOfB = readLine()!!
-            print("Enter your new Job Title for [ " + employee.jobTitle + " ] : ")
+            print("Update your Email to replace [ " + employee.email + " ] : ")
+            tempEmail = readLine()!!
+            print("Update your Nationality to replace [ " + employee.nationality + " ] : ")
+            tempNationality = readLine()!!
+            print("Update your Job Title to replace [ " + employee.jobTitle + " ] : ")
             tempjobTitle = readLine()!!
 
-            if (!tempfName.isNullOrEmpty() && !tempsName.isNullOrEmpty() && !tempdateOfB.isNullOrEmpty() && !tempjobTitle.isNullOrEmpty()) {
+            if (!tempfName.isNullOrEmpty() && !tempsName.isNullOrEmpty() && !tempdateOfB.isNullOrEmpty() && !tempEmail.isNullOrEmpty() && !tempNationality.isNullOrEmpty() && !tempjobTitle.isNullOrEmpty()) {
                 employee.fName = tempfName
                 employee.sName = tempsName
                 employee.dateOfB = tempdateOfB
+                employee.email = tempEmail
+                employee.nationality = tempNationality
                 employee.jobTitle = tempjobTitle
                 return true
             }
@@ -86,6 +99,7 @@ class employeeView {
     fun getId() : Long {
         var strId : String? // String to hold user input
         var searchId : Long // Long to hold converted id
+
         print("Enter Employee Id to Search/Update/Delete : ")
         strId = readLine()!!
         searchId = if (strId.toLongOrNull() != null && !strId.isEmpty())
