@@ -52,6 +52,8 @@ class employeeJSONStore : employeeStore {
             foundEmployee.fName = employee.fName
             foundEmployee.sName = employee.sName
             foundEmployee.dateOfB = employee.dateOfB
+            foundEmployee.email = employee.email
+            foundEmployee.nationality = employee.nationality
             foundEmployee.jobTitle = employee.jobTitle
         }
         serialize()
