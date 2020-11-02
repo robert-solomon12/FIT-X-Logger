@@ -11,17 +11,20 @@ class ListEmployeeUI : View("FIT-X-LOGGER Existing Employees") {
 
 
     override val root = vbox {
-        setPrefSize(600.0, 200.0)
+        setPrefSize(800.0, 700.0)
         tableview(data) {
-            readonlyColumn("ID", employeeModel::id)
-            readonlyColumn("FIRST_NAME", employeeModel::fName)
-            readonlyColumn("SURNAME", employeeModel::sName)
-            readonlyColumn("DATE_OF_BIRTH", employeeModel::dateOfB)
-            readonlyColumn("EMAIL", employeeModel::email)
-            readonlyColumn("NATIONALITY", employeeModel::nationality)
-            readonlyColumn("JOB_TITLE", employeeModel::jobTitle)
+            column("ID", employeeModel::id)
+            column("FIRST_NAME", employeeModel::fName)
+            column("SURNAME", employeeModel::sName)
+            column("DATE_OF_BIRTH", employeeModel::dateOfB)
+            column("EMAIL", employeeModel::email)
+            column("NATIONALITY", employeeModel::nationality)
+            column("JOB_TITLE", employeeModel::jobTitle)
+
+            //Smart Resize policy to resize the columns
+            columnResizePolicy = SmartResize.POLICY
         }
-        button("Close") {
+        button("Back") {
             useMaxWidth = true
             action {
                 runAsyncWithProgress {

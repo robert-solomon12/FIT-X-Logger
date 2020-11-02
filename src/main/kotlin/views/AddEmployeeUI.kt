@@ -47,7 +47,7 @@ class AddEmployeeUI : View("FIT-X-LOGGER Add New Employee") {
                     }
                 }
             }
-            button("Close") {
+            button("Back") {
                 useMaxWidth = true
                 action {
                     runAsyncWithProgress {
