@@ -10,6 +10,7 @@ class AddEmployeeUI : View("FIT-X-LOGGER Add New Employee") {
     val _fName = model.bind { SimpleStringProperty() }
     val _sName = model.bind { SimpleStringProperty() }
     val _dateOfB = model.bind { SimpleStringProperty() }
+//    val _dateOfB = SimpleObjectProperty<LocalDate>()
     val _email = model.bind { SimpleStringProperty() }
     val _nationality = model.bind { SimpleStringProperty() }
     val _jobTitle = model.bind { SimpleStringProperty() }
@@ -24,6 +25,9 @@ class AddEmployeeUI : View("FIT-X-LOGGER Add New Employee") {
             field("Surname") {
                 textfield(_sName).required()
             }
+//            datepicker(_dateOfB){
+//                value = LocalDate.now()
+//            }
             field("Date of Birth") {
                 textfield(_dateOfB).required()
             }
@@ -42,7 +46,7 @@ class AddEmployeeUI : View("FIT-X-LOGGER Add New Employee") {
                 useMaxWidth = true
                 action {
                     runAsyncWithProgress {
-                        empUIController.add(_fName.toString(),_sName.toString(),_dateOfB.toString(),_email.toString(),_nationality.toString(),_jobTitle.toString())
+                        empUIController.add(_fName.value,_sName.value,_dateOfB.value,_email.value,_nationality.value,_jobTitle.value)
 
                     }
                 }
