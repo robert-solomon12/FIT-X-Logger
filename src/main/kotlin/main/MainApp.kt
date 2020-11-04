@@ -2,8 +2,8 @@ package main
 
 import tornadofx.App
 import tornadofx.launch
-import views.MenuUI
+import views.WelcomeUI
 
-class MainApp : App(MenuUI::class)
+class MainApp : App(WelcomeUI::class)
 
 fun main() = launch<MainApp>()
