@@ -17,6 +17,8 @@ val JSON_FILE = "employeesData.json"
 val gsonBuilder = GsonBuilder().setPrettyPrinting().create()
 val listType = object : TypeToken<java.util.ArrayList<employeeModel>>() {}.type
 
+//val empM = ArrayList<employeeModel>()
+
 fun generateRandomId(): Long {
     return Random().nextLong()
 }
@@ -41,7 +43,8 @@ class employeeJSONStore : employeeStore {
     }
 
     override fun create(employee: employeeModel) {
-        employee.id = generateRandomId()
+
+        employee.id = generateRandomId() //empM.size.toLong()
         employees.add(employee)
         serialize()
     }
@@ -62,6 +65,7 @@ class employeeJSONStore : employeeStore {
     override fun delete(employee: employeeModel) {
         employees.remove(employee)
         serialize()
+        deserialize()
     }
 
     internal fun logAll() {

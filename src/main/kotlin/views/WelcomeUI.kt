@@ -3,10 +3,12 @@ package views
 import controllers.employeeControllerUI
 import javafx.application.Platform
 import javafx.geometry.Orientation
-import models.employeeModel
 import tornadofx.*
 
-class MenuUI : View("FIT-X-LOGGER Menu") {
+
+
+
+class WelcomeUI : View("Hello and Welcome") {
 
     val empUIController: employeeControllerUI by inject()
 
@@ -14,37 +16,29 @@ class MenuUI : View("FIT-X-LOGGER Menu") {
         setPrefSize(400.0, 200.0)
         fieldset(labelPosition = Orientation.VERTICAL) {
             text("")
-            button("Add Employee") {
 
+            button("Enter") {
                 isDefaultButton = true
                 useMaxWidth = true
                 action {
                     runAsyncWithProgress {
-                        empUIController.loadAddScreen()
+                        empUIController.loadMenuUI()
                     }
                 }
             }
-            text("")
-            button("List Existing Employees") {
+            button("Exit") {
 
-                isDefaultButton = true
+//                isDefaultButton = true
                 useMaxWidth = true
                 action {
+
+                    //RUNSYNC Loading feature
                     runAsyncWithProgress {
-                        empUIController.loadListScreen()
-                    }
-                }
-            }
-            text("")
-            button("Back") {
-                useMaxWidth = true
-                action {
-                    runAsyncWithProgress {
-                        empUIController.closeMenu()
+                        Platform.exit();
+                        System.exit(0);
                     }
                 }
             }
         }
-
     }
 }
