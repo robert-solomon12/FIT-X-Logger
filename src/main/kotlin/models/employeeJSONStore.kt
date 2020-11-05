@@ -19,8 +19,8 @@ val listType = object : TypeToken<java.util.ArrayList<employeeModel>>() {}.type
 
 //val empM = ArrayList<employeeModel>()
 
-fun generateRandomId(): Long {
-    return Random().nextLong()
+fun generateRandomId(): Int {
+    return Random().nextInt()
 }
 
 class employeeJSONStore : employeeStore {
@@ -37,7 +37,7 @@ class employeeJSONStore : employeeStore {
         return employees
     }
 
-    override fun findOne(id: Long) : employeeModel? {
+    override fun findOne(id: Int) : employeeModel? {
         var foundEmployee: employeeModel? = employees.find { p -> p.id == id }
         return foundEmployee
     }

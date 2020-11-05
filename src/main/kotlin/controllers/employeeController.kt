@@ -92,7 +92,7 @@ class employeeController {
             println("Employee Not Deleted...")
     }
 
-    fun search(id: Long): employeeModel? {
+    fun search(id: Int): employeeModel? {
         var foundEmployee = employees.findOne(id)
         return foundEmployee
     }

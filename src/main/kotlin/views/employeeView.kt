@@ -96,14 +96,14 @@ class employeeView {
         return false
     }
 
-    fun getId() : Long {
+    fun getId() : Int {
         var strId : String? // String to hold user input
-        var searchId : Long // Long to hold converted id
+        var searchId : Int // Long to hold converted id
 
         print("Enter Employee Id to Search/Update/Delete : ")
         strId = readLine()!!
-        searchId = if (strId.toLongOrNull() != null && !strId.isEmpty())
-            strId.toLong()
+        searchId = if (strId.toIntOrNull() != null && !strId.isEmpty())
+            strId.toInt()
         else
             -9
         return searchId

@@ -1,74 +1,76 @@
 package views
 
-import controllers.employeeControllerUI
+import controllers.employeeControllerUIDB
 import javafx.beans.property.SimpleStringProperty
-import javafx.geometry.Orientation
+import javafx.stage.StageStyle
 import tornadofx.*
+import controllers.PopupDialog
 
-class AddEmployeeUI : View("FIT-X-LOGGER Add New Employee") {
-    val model = ViewModel()
-    val _fName = model.bind { SimpleStringProperty() }
-    val _sName = model.bind { SimpleStringProperty() }
-    val _dateOfB = model.bind { SimpleStringProperty() }
-//    val _dateOfB = SimpleObjectProperty<LocalDate>()
-    val _email = model.bind { SimpleStringProperty() }
-    val _nationality = model.bind { SimpleStringProperty() }
-    val _jobTitle = model.bind { SimpleStringProperty() }
-    val empUIController: employeeControllerUI by inject()
+class AddEmployeeUI : View("New Employee") {
+    private val fName = SimpleStringProperty()
+    private val sName = SimpleStringProperty()
+    private val dateOfB = SimpleStringProperty()
 
-    override val root = form {
-        setPrefSize(600.0, 200.0)
-        fieldset(labelPosition = Orientation.VERTICAL) {
-            field("First Name") {
-                textfield(_fName).required()
-            }
-            field("Surname") {
-                textfield(_sName).required()
-            }
+    //    val _dateOfB = SimpleObjectProperty<LocalDate>()
+    private val email = SimpleStringProperty()
+    private val nationality = SimpleStringProperty()
+    private val jobTitle = SimpleStringProperty()
+
+    //    val empUIController: employeeControllerUI by inject()
+    val empuidb: employeeControllerUIDB by inject()
+
+    override val root = vbox {
+        form {
+            fieldset {
+                field("First Name:") {
+                    textfield(fName)
+                }
+                field("Surname:") {
+                    textfield(sName)
+                }
 //            datepicker(_dateOfB){
 //                value = LocalDate.now()
 //            }
-            field("Date of Birth") {
-                textfield(_dateOfB).required()
-            }
-            field("Email") {
-                textfield(_email).required()
-            }
-            field("Nationality") {
-                textfield(_nationality).required()
-            }
-            field("Job Title") {
-                textfield(_jobTitle).required()
-            }
-            button("Add") {
-                enableWhen(model.valid)
-                isDefaultButton = true
-                useMaxWidth = true
-                action {
-                    runAsyncWithProgress {
-                        empUIController.add(_fName.value,_sName.value,_dateOfB.value,_email.value,_nationality.value,_jobTitle.value)
-
-                    }
+                field("Date of Birth:") {
+                    textfield(dateOfB)
                 }
-            }
-            button("Back") {
-                useMaxWidth = true
-                action {
-                    runAsyncWithProgress {
-                        empUIController.closeAdd()
+                field("Email:") {
+                    textfield(email)
+                }
+                field("Nationality:") {
+                    textfield(nationality)
+                }
+                field("Job Title:") {
+                    textfield(jobTitle)
+                }
+                button("Add") {
+                    action {
+                        runAsyncWithProgress {
+                            empuidb.addEmp(
+                                fName.value,
+                                sName.value,
+                                dateOfB.value,
+                                email.value,
+                                nationality.value,
+                                jobTitle.value)
+                        }.ui {
+                            fName.value = ""; sName.value = ""; dateOfB.value = ""; email.value =
+                            ""; nationality.value =
+                            ""; jobTitle.value = ""
+                            find<PopupDialog>(params = mapOf("message" to "New Employee Added")).openModal(stageStyle = StageStyle.UTILITY)
+                        }
                     }
                 }
             }
         }
     }
-
-    override fun onDock() {
-        _fName.value = ""
-        _sName.value = ""
-        _dateOfB.value = ""
-        _email.value = ""
-        _nationality.value = ""
-        _jobTitle.value = ""
-        model.clearDecorators()
-    }
 }
+//            button("Back") {
+//                useMaxWidth = true
+//                action {
+//                    runAsyncWithProgress {
+//                        empUIController.closeAdd()
+//                    }
+//                }
+//            }
+
