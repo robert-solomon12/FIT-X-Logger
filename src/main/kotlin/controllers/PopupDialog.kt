@@ -11,9 +11,9 @@ class PopupDialog : View() {
 
     val message: String by param()
     override val root = vbox {
+
         label(message){
             addClass(Styles.heading)
         }
-
     }
 }

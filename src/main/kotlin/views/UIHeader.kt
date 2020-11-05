@@ -7,10 +7,11 @@ import tornadofx.tabpane
 
 class UIHeader : View() {
 
+    //Tabpane View
     override val root = tabpane {
         tabClosingPolicy = TabPane.TabClosingPolicy.UNAVAILABLE
         tab<AddEmployeeUI>()
         tab("Employees_List")
-        tab("Delete Employee")
+        tab("Delete_Employee")
     }
 }

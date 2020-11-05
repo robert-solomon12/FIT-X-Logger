@@ -11,14 +11,12 @@ class employeeControllerUIDB : Controller() {
     val logger = KotlinLogging.logger {}
 //    val empC = employeeController()
 
-
     init {
         logger.info { "Launching FIT-X-LOGGER TornadoFX UI App" }
     }
 
-    fun addEmp(_fName: String, _sName: String, _dateOfB: String, _email: String, _nationality: String, _jobTitle: String) {
-
-        val employM = employeeModel(id = 0, _fName, _sName, _dateOfB, _email, _nationality, _jobTitle)
+    fun addEmp(fName: String, sName: String, dateOfB: String, email: String, nationality: String, jobTitle: String) {
+        val employM = employeeModel(fName, sName, dateOfB, email, nationality, jobTitle)
         val dao = EmployeeDao()
         dao.addEmployee(employM)
     }

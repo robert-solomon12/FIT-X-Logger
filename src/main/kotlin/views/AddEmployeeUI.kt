@@ -5,6 +5,8 @@ import javafx.beans.property.SimpleStringProperty
 import javafx.stage.StageStyle
 import tornadofx.*
 import controllers.PopupDialog
+import javafx.beans.property.SimpleIntegerProperty
+import javafx.scene.control.TextField
 
 class AddEmployeeUI : View("New Employee") {
     private val fName = SimpleStringProperty()
@@ -57,14 +59,15 @@ class AddEmployeeUI : View("New Employee") {
                             fName.value = ""; sName.value = ""; dateOfB.value = ""; email.value =
                             ""; nationality.value =
                             ""; jobTitle.value = ""
+                            //search for PopupDialog class and set message to 'Employee Added'
                             find<PopupDialog>(params = mapOf("message" to "New Employee Added")).openModal(stageStyle = StageStyle.UTILITY)
+                             }
                         }
                     }
                 }
             }
         }
     }
-}
 //            button("Back") {
 //                useMaxWidth = true
 //                action {
