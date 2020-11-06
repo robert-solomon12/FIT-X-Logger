@@ -15,8 +15,8 @@ class Styles : Stylesheet() {
 
     init {
         label and heading {
-            padding = box(500.px)
-            fontSize = 20.px
+            padding = box(700.px)
+            fontSize = 70.px
             fontWeight = javafx.scene.text.FontWeight.BOLD
         }
     }

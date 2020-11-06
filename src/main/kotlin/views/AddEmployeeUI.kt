@@ -5,8 +5,11 @@ import javafx.beans.property.SimpleStringProperty
 import javafx.stage.StageStyle
 import tornadofx.*
 import controllers.PopupDialog
+import javafx.application.Platform
 import javafx.beans.property.SimpleIntegerProperty
-import javafx.scene.control.TextField
+import javafx.scene.paint.Color
+import javafx.scene.text.FontWeight
+
 
 class AddEmployeeUI : View("New Employee") {
     private val fName = SimpleStringProperty()
@@ -15,6 +18,7 @@ class AddEmployeeUI : View("New Employee") {
 
     //    val _dateOfB = SimpleObjectProperty<LocalDate>()
     private val email = SimpleStringProperty()
+    private val ssNumber = SimpleIntegerProperty()
     private val nationality = SimpleStringProperty()
     private val jobTitle = SimpleStringProperty()
 
@@ -30,14 +34,14 @@ class AddEmployeeUI : View("New Employee") {
                 field("Surname:") {
                     textfield(sName)
                 }
-//            datepicker(_dateOfB){
-//                value = LocalDate.now()
-//            }
                 field("Date of Birth:") {
                     textfield(dateOfB)
                 }
                 field("Email:") {
                     textfield(email)
+                }
+                field("Social Security No.:") {
+                    textfield(ssNumber)
                 }
                 field("Nationality:") {
                     textfield(nationality)
@@ -53,27 +57,39 @@ class AddEmployeeUI : View("New Employee") {
                                 sName.value,
                                 dateOfB.value,
                                 email.value,
+                                ssNumber.value,
                                 nationality.value,
-                                jobTitle.value)
+                                jobTitle.value,
+                            )
                         }.ui {
                             fName.value = ""; sName.value = ""; dateOfB.value = ""; email.value =
-                            ""; nationality.value =
-                            ""; jobTitle.value = ""
+                            ""; ssNumber.value; nationality.value = ""; jobTitle.value = "";
                             //search for PopupDialog class and set message to 'Employee Added'
-                            find<PopupDialog>(params = mapOf("message" to "New Employee Added")).openModal(stageStyle = StageStyle.UTILITY)
-                             }
+                            find<PopupDialog>(params = mapOf("message" to "New Employee Added!")).openModal(stageStyle = StageStyle.UTILITY)
+                        }
+                    }
+                }
+                button("Exit") {
+                    style {
+                        fontWeight = FontWeight.EXTRA_BOLD
+                        borderColor += box(
+                            top = Color.RED,
+                            right = Color.DARKRED,
+                            left = Color.DARKRED,
+                            bottom = Color.DARKRED
+                        )
+                    }
+                    isDefaultButton = true
+                    useMaxWidth = true
+                    action {
+                        runAsyncWithProgress {
+                            Platform.exit();
+                            System.exit(0);
                         }
                     }
                 }
             }
         }
     }
-//            button("Back") {
-//                useMaxWidth = true
-//                action {
-//                    runAsyncWithProgress {
-//                        empUIController.closeAdd()
-//                    }
-//                }
-//            }
+}
 

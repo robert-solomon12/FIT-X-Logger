@@ -1,71 +1,79 @@
 package views
 
-import controllers.employeeControllerUI
-import javafx.collections.ObservableList
-import javafx.scene.control.SelectionMode
+import controllers.PopupDialog
+import controllers.employeeControllerUIDB
+import javafx.application.Platform
+import javafx.beans.property.SimpleObjectProperty
+
+import javafx.stage.StageStyle
 import models.employeeModel
+
 import tornadofx.*
 
 
-class ListEmployeeUI : View("FIT-X-LOGGER Existing Employees") {
+class ListEmployeeUI : View("Existing Employees") {
 
-    val empUIController: employeeControllerUI by inject()
-
-    var data = empUIController.getTData()
-    var selectedEmployee = employeeModel()
+    private val data: employeeControllerUIDB by inject()
+    private val comboboxObject = SimpleObjectProperty<employeeModel>()
 
 
     override val root = vbox {
-        setPrefSize(1000.0, 600.0)
-        //var onLeftClick
-        tableview(data) {
 
-            //on Double click
-            onDoubleClick {
-            }
-            onUserSelect {
-                if (this.selectedItem != null) {
-                    selectedEmployee = this.selectedItem!!
+        setPrefSize(800.0, 600.0)
 
-//                    println(this.selectedItem)
-                }
-//                println(this.selectedItem!!)
-            }
-
-            selectionModel.selectionMode = SelectionMode.SINGLE
-            readonlyColumn("ID", employeeModel::id).fixedWidth(180)
-            readonlyColumn("FIRST_NAME", employeeModel::fName).fixedWidth(120)
-            readonlyColumn("SURNAME", employeeModel::sName).fixedWidth(120)
-            readonlyColumn("DATE_OF_BIRTH", employeeModel::dateOfB).fixedWidth(130)
-            readonlyColumn("EMAIL", employeeModel::email).fixedWidth(180)
-            readonlyColumn("NATIONALITY", employeeModel::nationality).fixedWidth(120)
+        /*
+        tableview which holds an observablelist 'employee_data' in my tableview
+         */
+        tableview(data.employee_data) {
+            readonlyColumn("FIRST_NAME", employeeModel::fName).fixedWidth(141)
+            readonlyColumn("SURNAME", employeeModel::sName).fixedWidth(141)
+            readonlyColumn("DATE_OF_BIRTH", employeeModel::dateOfB).fixedWidth(141)
+            readonlyColumn("EMAIL", employeeModel::email).fixedWidth(141)
+            readonlyColumn("SS_Number", employeeModel::ssNumber).fixedWidth(141)
+            readonlyColumn("NATIONALITY", employeeModel::nationality).fixedWidth(141)
             readonlyColumn("JOB_TITLE", employeeModel::jobTitle)
-//            readonlyColumn("Action", employeeModel::id)
+
 
             //Smart Resize policy to resize the columns
             columnResizePolicy = SmartResize.POLICY
         }
+        combobox<employeeModel>(comboboxObject) {
+            items = data.employee_data
+            cellFormat {
+                text = this.item.ssNumber.toString()
+            }
+        }
 
-        //on Double Click on Selection in Listview, action is performed to delete
-        button("Delete") {
+        /* on action delete button which calls for the delete method in my controller class to remove the selected record based by the ssNumber of the existing
+         record on combobox dropdown and removes the reflects the changes in the database.
+         */
+        button("Delete")
+        {
             useMaxWidth = true
             action {
                 runAsyncWithProgress {
-                    empUIController.deleteEmployee(selectedEmployee)
 
-                    //refreshing the tableview after item is deleted
-                    data.setAll(empUIController.getTData())
+                    data.deleteEmp(comboboxObject.get())
+                    comboboxObject.value = null
+
+                    //this method is an interesting feature which I wanted to try, this post a popup to the user when this method call is invoked
+                    //acknow
+                    find<PopupDialog>(params = mapOf("message" to "Employee Deleted!")).openModal(stageStyle = StageStyle.UTILITY)
                 }
             }
         }
-        button("Back") {
+        button("Exit") {
+
+            isDefaultButton = true
             useMaxWidth = true
             action {
                 runAsyncWithProgress {
-                    empUIController.closeList()
+                    Platform.exit();
+                    System.exit(0);
                 }
             }
         }
     }
 }
+
 
