@@ -24,7 +24,7 @@
 
 
 ## Status
- - In Progress for a later release in the future. (see more information in the current releases descriptions)
+ - In Progress for a later release in the future. (for more information, please see the descriptions in the current releases)
  
  
 ## Contact_Information
