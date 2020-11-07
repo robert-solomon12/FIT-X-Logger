@@ -17,14 +17,14 @@
 
 
 ## Features
-* Full C.R.U.D. Functionality (in console versions, see releases)
+* Full C.R.U.D. Functionality (in console versions only, see releases)
 * Search/Filter (see console based app releases)
 * TornadoFX GUI (attempts done, see releases)
 * Integrated with a SQL-Lite DB
 
 
 ## Status
- - In Progress for a later release in the future.
+ - In Progress for a later release in the future. (see more information in the current releases descriptions)
  
  
 ## Contact_Information
